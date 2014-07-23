@@ -1,9 +1,9 @@
 Guru
 ====
 
-<h2>
+<h3>
 Intro
-</h2>
+</h3>
 <p>
 This is a project to hold all the code that I have been developing for the Guru, an in-house search utility at Quicken Loans powered by the Google Search Appliance (GSA).
 </p>
