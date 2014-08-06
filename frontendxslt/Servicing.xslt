@@ -360,7 +360,7 @@
   <xsl:variable name="faint_color">#7777cc</xsl:variable>
 
   <!-- *** show secure results radio button *** -->
-  <xsl:variable name="show_secure_radio">1</xsl:variable>
+  <xsl:variable name="show_secure_radio">0</xsl:variable>
 
   <!-- *** show suggestions (remote aut-completions) *** -->
   <xsl:variable name="show_suggest">1</xsl:variable>
@@ -867,6 +867,8 @@
   <xsl:template name="my_page_header">
     <span id="QL" style="display:inline-block;">
       <a href="http://servicingguru" style="float:left; max-width: 388px; min-width: 240px; width: 25%; height:62px; margin-top:10px; ">
+      <!--<a href="http://servicinggurutest" style="float:left; max-width: 388px; min-width: 240px; width: 25%; height:62px; margin-top:10px; ">-->
+
         <img src="http://servicingguru/images/Banner-Servicing-GURU.PNG" alt="LOGO" style="border:none; height:62px;"/>
       </a>
       <xsl:call-template name="result_page_header"/>
@@ -6622,6 +6624,125 @@ select="normalize-space(@H)"/>
       </nobr>
     </div>
   </xsl:template>
+
+  <!--<xsl:variable name="frontend_name">Servicing_Guru_Test_Frontend</xsl:variable>
+  <xsl:template name="collection_links">
+    <div id="collection_filter_links" style="min-width: 900px;">
+      <div class="left-spacing"></div>
+      <nobr>
+        <span>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_All'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="All QL"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="All QL"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_All"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FHA'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="FHA"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="FHA"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_FHA"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FannieMae'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="FannieMae"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="FannieMae"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_FannieMae"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FreddieMac'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="FreddieMac"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="FreddieMac"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_FreddieMac"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_VA'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="VA"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="VA"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_VA"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Legal'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="Legal"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="Legal"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_Legal"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+        </span>
+      </nobr>
+    </div>
+  </xsl:template>-->
 
   <xsl:template name="emptySearch">
     <div style="max-width:1550px">

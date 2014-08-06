@@ -100,9 +100,9 @@ Result page components (can be customized)
 
   <!-- *** keymatch suggestions *** -->
   <xsl:variable name="show_keymatch">1</xsl:variable>
-  <xsl:variable name="keymatch_text">KeyMatch</xsl:variable>
+  <xsl:variable name="keymatch_text">Suggested Result</xsl:variable>
   <xsl:variable name="keymatch_text_color">#2255aa</xsl:variable>
-  <xsl:variable name="keymatch_bg_color">#e8e8ff</xsl:variable>
+  <xsl:variable name="keymatch_bg_color">#ffffff</xsl:variable>
 
   <!-- *** Google Desktop integration *** -->
   <xsl:variable name="egds_show_search_tabs">0</xsl:variable>
@@ -164,10 +164,13 @@ Result page components (can be customized)
   </xsl:variable>
 
   <!-- *** Dictionary Results *** -->
-  <xsl:variable name="show_dictionary_results">0</xsl:variable>
+  <xsl:variable name="show_dictionary_results">1</xsl:variable>
 
   <!-- *** Collection Filter Links *** -->
   <xsl:variable name="show_collection_filter_links">1</xsl:variable>
+
+  <!-- *** Topic Numbers *** -->
+  <xsl:variable name="hide_topicnumbers">1</xsl:variable>
 
   <!-- **********************************************************************
 Result elements (can be customized)
@@ -205,7 +208,7 @@ Result elements (can be customized)
   <xsl:variable name="faint_color">#7777cc</xsl:variable>
 
   <!-- *** show secure results radio button *** -->
-  <xsl:variable name="show_secure_radio">1</xsl:variable>
+  <xsl:variable name="show_secure_radio">0</xsl:variable>
 
   <!-- **********************************************************************
 Other variables (can be customized)
@@ -1526,7 +1529,7 @@ Search Parameters (do not customize)
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 </xsl:text>
   </xsl:template>
-
+  
   <!-- **********************************************************************
 Figure out what kind of page this is (do not customize)
      ********************************************************************** -->
@@ -1691,7 +1694,7 @@ Advanced search page (do not customize)
           {p[i++] = 'oe=' + esc(z.oe.value);}
 
           if (typeof(z.access) != 'undefined')
-          {p[i++] = 'access=' + esc(z.access.value);}
+          {p[i++] = 'access=' + a;}
           if (custom != '')
           {p[i++] = 'proxycustom=' + '&lt;ADVANCED/&gt;';}
           if (p.length &gt; 0) {
@@ -2638,6 +2641,43 @@ Search results (do not customize)
           LEFT_SIDE_RES_CONTAINER).getElementsByClassName('left-side-container')[0];
           return leftResContainer.childNodes.length != 0 ? true : false;
           }
+
+          var DICTIONARY_CONTAINER = 'dictionary-container';
+          var DICTIONARY_TERM = 'dictionary-term';
+          var DICTIONARY_DEFINITION = 'dictionary-definition';
+
+          /** USING JSONP **/
+          function readJson(data) {
+          var allTerms = data.GuruDictionary;
+          var numTerms = 0;
+          for(var td in allTerms) {
+          if(allTerms.hasOwnProperty(td)){
+          numTerms++;
+          }
+          }
+
+          for(i = 0; i &lt; numTerms; i++) {
+          var termdef = allTerms[i];
+          var term = termdef.term;
+          if(term.toLowerCase() == &quot;<xsl:value-of select="$space_normalized_query"/>&quot;.toLowerCase())  {
+          var definition = termdef.definition;
+          document.getElementById(DICTIONARY_CONTAINER).style.display = '';
+          document.getElementById(DICTIONARY_TERM).innerHTML = term;
+          document.getElementById(DICTIONARY_DEFINITION).innerHTML = definition;
+          document.getElementById(DICTIONARY_TERM).style.display = '';
+          document.getElementById(DICTIONARY_DEFINITION).style.display = '';
+          }
+          }
+
+
+          }
+
+          var script = document.createElement('script');
+          script.src = 'https://guru.mi.corp.rockfin.com/dictionary/GuruDictionary.json';
+
+          document.getElementsByTagName('head')[0].appendChild(script);
+
+          window.onload = readJson(script);
         </xsl:comment>
       </script>
       <xsl:call-template name="langHeadEnd"/>
@@ -2680,11 +2720,6 @@ Search results (do not customize)
 
     <!-- *** Top separation bar *** -->
     <xsl:if test="Q != ''">
-      <!--<xsl:call-template name="top_sep_bar">
-        <xsl:with-param name="text" select="$sep_bar_std_text"/>
-        <xsl:with-param name="show_info" select="$show_search_info"/>
-        <xsl:with-param name="time" select="TM"/>
-      </xsl:call-template>-->
       <xsl:call-template name="result_stats">
         <xsl:with-param name="time" select="TM"/>
       </xsl:call-template>
@@ -2723,9 +2758,6 @@ Search results (do not customize)
         <script type="text/javascript">
           displayNoRes();
         </script>
-        <!--<xsl:call-template name="no_RES">
-          <xsl:with-param name="query" select="Q"/>
-        </xsl:call-template>-->
       </xsl:otherwise>
     </xsl:choose>
 
@@ -2861,7 +2893,7 @@ Search results (do not customize)
                 <table style="margin-top: 8px" cellpadding="0" cellspacing="0" border="0">
                   <tr>
                     <td>
-                      <input id="top-search-box" type="text" name="q" size="{$search_box_size}" maxlength="256" value="{$space_normalized_query}" autocomplete="off" onkeyup="ss_handleKey(event)"/>
+                      <input id="top-search-box" type="text" name="q" size="{$search_box_size}" maxlength="256" value="{$space_normalized_query}" autocomplete="on" onkeyup="ss_handleKey(event)"/>
                     </td>
                     <td>
                       <button class="search-btn" type="submit">
@@ -3105,6 +3137,11 @@ Output all results
             <xsl:call-template name="dictionary_results"/>
           </xsl:if>
 
+          <!-- for keymatch results -->
+          <xsl:if test="$show_keymatch != '0'">
+            <xsl:apply-templates select="/GSP/GM"/>
+          </xsl:if>
+          
           <xsl:apply-templates select="RES/R">
             <xsl:with-param name="query" select="$query"/>
           </xsl:apply-templates>
@@ -3284,18 +3321,13 @@ Output all results
       <div id="dictionary-hdr" class="dictionary-header" >
         <!-- Replace the following with the actual dictionary term!! -->
         <div id="dictionary-term" style="display: none;" >
-          Bankruptcy (This is Hardcoded)
         </div>
       </div>
       <div id="dictionary-body" class="dictionary-body">
         <div id="dictionary-definition" class="sb-l-res" style="display: none;" >
-          Bankruptcy (BK) is defined as the client’s application for court ordered release or restructuring of debt.
         </div>
       </div>
     </div>
-    <script type="text/javascript">
-      loadDictionaryResults();
-    </script>
   </xsl:template>
 
   <!-- Relevant Training Materials -->
@@ -3922,6 +3954,7 @@ Truncation functions (do not customize)
               <xsl:when test="T">
                 <xsl:call-template name="reformat_keyword">
                   <xsl:with-param name="orig_string" select="T"/>
+                  <xsl:with-param name="is_title" select="'1'"/>
                 </xsl:call-template>
               </xsl:when>
               <xsl:otherwise>
@@ -4034,31 +4067,32 @@ Truncation functions (do not customize)
   A single keymatch result (do not customize)
      ********************************************************************** -->
   <xsl:template match="GM">
-    <p>
-      <table cellpadding="4" cellspacing="0" border="0" height="40" width="100%">
-        <tr>
-          <td nowrap="0" bgcolor="{$keymatch_bg_color}" height="40">
-            <a href="{GL}">
-              <xsl:value-of select="GD"/>
-            </a>
-            <br/>
-            <font size="-1" color="{$res_url_color}">
-              <span class="a">
-                <xsl:value-of select="GL"/>
-              </span>
-            </font>
-          </td>
-          <td bgcolor="{$keymatch_bg_color}" height="40"
-            align="right" valign="top">
-            <b>
-              <font size="-1" color="{$keymatch_text_color}">
-                <xsl:value-of select="$keymatch_text"/>
-              </font>
-            </b>
-          </td>
-        </tr>
-      </table>
-    </p>
+    <div class="result-item" style="margin-top: 20px">
+      <span bgcolor="{$keymatch_bg_color}"
+            style="float:right" valign="top">
+        <b>
+          <font size="-1" color="{$keymatch_text_color}">
+            <xsl:value-of select="$keymatch_text"/>
+          </font>
+        </b>
+      </span>
+      <span class="r">
+        <span bgcolor="{$keymatch_bg_color}" >
+          <a ctype="keymatch" href="{GL}" >
+            <xsl:call-template name="bold_keyword">
+              <xsl:with-param name="orig_string" select="GD"/>
+            </xsl:call-template>
+          </a>
+          <br/>
+          <font size="-1" color="{$res_url_color}">
+            <span class="a">
+              <xsl:value-of select="GL"/>
+            </span>
+          </font>
+        </span>
+      </span>
+    </div>
+    <p></p>
   </xsl:template>
 
 
@@ -4107,12 +4141,28 @@ Truncation functions (do not customize)
      ********************************************************************** -->
   <xsl:template name="reformat_keyword">
     <xsl:param name="orig_string"/>
+    <xsl:param name="is_title"/>
+
+    <xsl:variable name="mod_string">
+      <xsl:call-template name="remove_topicnumber">
+        <xsl:with-param name="title" select="$orig_string"/>
+      </xsl:call-template>
+    </xsl:variable>
 
     <xsl:variable name="reformatted_1">
       <xsl:call-template name="replace_string">
         <xsl:with-param name="find" select="$keyword_orig_start"/>
         <xsl:with-param name="replace" select="$keyword_reformat_start"/>
-        <xsl:with-param name="string" select="$orig_string"/>
+        <xsl:with-param name="string">
+          <xsl:choose>
+            <xsl:when test="$is_title = '1' and $hide_topicnumbers = '1'">
+              <xsl:value-of select="$mod_string"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$orig_string"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
       </xsl:call-template>
     </xsl:variable>
 
@@ -4128,6 +4178,66 @@ Truncation functions (do not customize)
 
   </xsl:template>
 
+  <xsl:template name="bold_keyword">
+    <xsl:param name="orig_string"/>
+
+    <xsl:variable name="bold_string">
+      <xsl:variable name="queryLowercase">
+        <xsl:call-template name="tosmallcase">
+          <xsl:with-param name="string" select="$space_normalized_query"/>
+        </xsl:call-template>
+      </xsl:variable>
+
+      <xsl:choose>
+        <xsl:when test="contains($orig_string, ' ')">
+          <xsl:variable name="substringBeforeLowercase">
+            <xsl:call-template name="tosmallcase">
+              <xsl:with-param name="string" select="substring-before($orig_string, ' ')"/>
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="contains($queryLowercase, $substringBeforeLowercase)">
+              <xsl:value-of select="concat(concat($keyword_orig_start, substring-before($orig_string, ' ')), concat($keyword_orig_end, ' '))"/>
+              <xsl:call-template name="bold_keyword">
+                <xsl:with-param name="orig_string" select="substring-after($orig_string, ' ')"/>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="concat(substring-before($orig_string, ' '), ' ')"/>
+              <xsl:call-template name="bold_keyword">
+                <xsl:with-param name="orig_string" select="substring-after($orig_string, ' ')"/>
+              </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="stringLowercase">
+            <xsl:call-template name="tosmallcase">
+              <xsl:with-param name="string" select="$orig_string"/>
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="contains($queryLowercase, $stringLowercase)">
+              <xsl:value-of select="concat(concat($keyword_orig_start, $orig_string), $keyword_orig_end)"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$orig_string"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:value-of disable-output-escaping='yes' select="$bold_string"/>
+
+  </xsl:template>
+
+  <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+  <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+  <xsl:template name="tosmallcase">
+    <xsl:param name="string"/>
+    <xsl:value-of select="translate($string, $uppercase, $smallcase)" />
+  </xsl:template>
 
   <!-- **********************************************************************
   Helper templates for generating a result item (do not customize)
@@ -4791,6 +4901,28 @@ Utility functions (do not customize)
 
   </xsl:template>
 
+  <xsl:template name="remove_topicnumber">
+    <xsl:param name="title"/>
+    <xsl:variable name="space_char" select="' '"/>
+    <xsl:variable name="period_char" select="'.'"/>
+    <xsl:choose>
+      <xsl:when test="contains($title, $space_char)">
+        <xsl:choose>
+          <xsl:when test="contains(substring-before($title, $space_char), $period_char)">
+            <xsl:variable name="new_string" select="substring-after($title, $space_char)"/>
+            <xsl:value-of select="$new_string"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$title"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$title"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
   <!-- **********************************************************************
 Display error messages
      ********************************************************************** -->
@@ -4821,11 +4953,6 @@ Display error messages
           </table>
         </xsl:if>
 
-        <!--<xsl:call-template name="top_sep_bar">
-          <xsl:with-param name="text" select="$sep_bar_error_text"/>
-          <xsl:with-param name="show_info" select="0"/>
-          <xsl:with-param name="time" select="0"/>
-        </xsl:call-template>-->
         <xsl:call-template name="result_stats">
           <xsl:with-param name="time" select="0"/>
         </xsl:call-template>
