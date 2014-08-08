@@ -211,9 +211,9 @@
 
   <!-- *** keymatch suggestions *** -->
   <xsl:variable name="show_keymatch">1</xsl:variable>
-  <xsl:variable name="keymatch_text">KeyMatch</xsl:variable>
+  <xsl:variable name="keymatch_text">Suggested Result</xsl:variable>
   <xsl:variable name="keymatch_text_color">#2255aa</xsl:variable>
-  <xsl:variable name="keymatch_bg_color">#e8e8ff</xsl:variable>
+  <xsl:variable name="keymatch_bg_color">#ffffff</xsl:variable>
 
   <!-- *** Google Desktop integration *** -->
   <xsl:variable name="egds_show_search_tabs">0</xsl:variable>
@@ -316,11 +316,16 @@
   <xsl:variable name="show_document_previews">1</xsl:variable>
 
   <!-- *** Dictionary Results *** -->
-  <xsl:variable name="show_dictionary_results">0</xsl:variable>
+  <xsl:variable name="show_dictionary_results">1</xsl:variable>
 
   <!-- *** Collection Filter Links *** -->
   <xsl:variable name="show_collection_filter_links">1</xsl:variable>
 
+  <!-- *** Topic Numbers *** -->
+  <xsl:variable name="hide_topicnumbers">1</xsl:variable>
+
+  <!-- *** Pass Query Through URL *** -->
+  <xsl:variable name="pass_query_through_url">0</xsl:variable>
   <!-- **********************************************************************
  Result elements (can be customized)
      - whether to show an element ('1' for yes, '0' for no)
@@ -868,24 +873,23 @@
     <span id="QL" style="display:inline-block;">
       <a href="http://servicingguru" style="float:left; max-width: 388px; min-width: 240px; width: 25%; height:62px; margin-top:10px; ">
       <!--<a href="http://servicinggurutest" style="float:left; max-width: 388px; min-width: 240px; width: 25%; height:62px; margin-top:10px; ">-->
-
-        <img src="http://servicingguru/images/Banner-Servicing-GURU.PNG" alt="LOGO" style="border:none; height:62px;"/>
+        <img src="http://servicingguru/images/Banner-Servicing-GURU.png" alt="LOGO" style="border:none; height:62px;"/>
       </a>
       <xsl:call-template name="result_page_header"/>
 
-      <img src="http://guru/images/Banner-color-bar.png" alt="color bar" style="height:8px; width:100%; min-width:754px;"/>
+      <img src="http://servicingguru/images/Banner-color-bar.png" alt="color bar" style="height:8px; width:100%; min-width:754px;"/>
     </span>
 
   </xsl:template>
 
   <xsl:template name="my_page_footer">
-    <span style="width:100%; background-image:url('http://guru/images/Banner-Textured-Banner.png');" class="p">
-      <xsl:text disable-output-escaping="yes">         &lt;div class="footer" style="height: 68px; background-image:url('http://guru/images/Banner-Textured-Banner.png'); "&gt;
+    <span style="width:100%; background-image:url('http://servicingguru/images/Banner-Textured-Banner.png');" class="p">
+      <xsl:text disable-output-escaping="yes">         &lt;div class="footer" style="height: 68px; background-image:url('http://servicingguru/images/Banner-Textured-Banner.png'); "&gt;
          &lt;body&gt;
-         &lt;img style="float:top; display:block; width:100%; min-width:754px; height:8px;" src="http://guru/images/Banner-color-bar.png" alt="color bar" /&gt;
+         &lt;img style="float:top; display:block; width:100%; min-width:754px; height:8px;" src="http://servicingguru/images/Banner-color-bar.png" alt="color bar" /&gt;
          &lt;div align="center"&gt;
          &lt;a href="http://quniverse/teams/CapitalMarkets/Pages/default.aspx" target="_blank"&gt;
-          &lt;img style="height:50px; border:none; float:right; padding-top:2px;" alt="PLAB" src="http://guru/images/plab-logo.png" border="0" &gt;
+          &lt;img style="height:50px; border:none; float:right; padding-top:2px;" alt="PLAB" src="http://servicingguru/images/plab-logo.png" border="0" &gt;
          &lt;/a&gt;
          &lt;div style="text-align:center; font-size: 10px; width:600px"&gt;
          &amp;#169; &lt;span id="year"&gt;&lt;/span&gt; Quicken Loans Inc. All Rights Reserved. Confidential and Proprietary. Any unauthorized dissemination is strictly
@@ -1479,12 +1483,12 @@
         .dictionary-header {
         font-size: large;
         font-weight: normal;
-        padding: 20px 10px 20px 10px;
+        padding: 20px 15px 15px 15px;
         }
         .dictionary-body {
         font-size: small;
         font-weight: normal;
-        padding: 0px 10px 20px 30px;
+        padding: 0px 15px 15px 20px;
         }
         .form-container {
         margin: 0px 10px 10px 0px;
@@ -1663,12 +1667,21 @@
 
         }
         .training-header {
+        /*Old Purple*/
+        /*
         background-color:rgb(248, 234, 255);
+        */
+        background-color: #f4f4f4;
         }
         .training-body {
+        /*
         border-left: 1px solid rgb(248, 234, 255);
         border-right: 1px solid rgb(248, 234, 255);
         border-bottom: 1px solid rgb(248, 234, 255);
+        */
+        border-left: 1px solid #f4f4f4;
+        border-right: 1px solid #f4f4f4;
+        border-bottom: 1px solid #f4f4f4;
         }
 
         /** THIS IS THE CSS FOR FONT AWESOME ICONS IE7 **/
@@ -2592,7 +2605,7 @@
       height:50px;
       }
       .search-btn{
-      background-color:  rgb(56,100,180);
+      background-color: #2980b9;
       color:white;
       border: 0px;
       height: 31px;
@@ -2607,7 +2620,7 @@
       width: 450px;
       height: 27px;
       padding-left: 5px;
-      border: 2px inset gray;
+      border: 2px solid lightgray;
       border-right:0px;
 
 
@@ -3299,7 +3312,7 @@ so we use a sentinel value of -1 for swrnum -->
           {p[i++] = 'oe=' + esc(z.oe.value);}
 
           if (typeof(z.access) != 'undefined')
-          {p[i++] = 'access=' + esc(z.access.value);}
+          {p[i++] = 'access=' + a;}
           if (custom != '')
           {p[i++] = 'proxycustom=' + '&lt;ADVANCED/&gt;';}
           if (p.length &gt; 0) {
@@ -4499,9 +4512,15 @@ so we use a sentinel value of -1 for swrnum -->
           * Checks if the organic results on the left side are present or not.
           */
           function isLeftResultPresent() {
+          /**
           var leftResContainer = document.getElementById(
           LEFT_SIDE_RES_CONTAINER).getElementsByTagName('div')[0];
           return leftResContainer.childNodes.length != 0 ? true : false;
+          */
+          var leftResContainer = document.getElementById(
+          'main-results-without-dn');
+          return leftResContainer.childNodes.length != 0 ? true : false;
+
           }
         </xsl:if>
         <xsl:if test="$show_apps_segmented_ui = '1'">
@@ -4654,46 +4673,76 @@ so we use a sentinel value of -1 for swrnum -->
         var currentYear = new Date().getFullYear();
         yearTag.innerHTML = currentYear;
         };
-        <xsl:if test="$show_dictionary_results='1'">
-          var DICTIONARY_CONTAINER = 'dictionary-container';
-          var DICTIONARY_TERM = 'dictionary-term';
-          var DICTIONARY_DEFINITION = 'dictionary-definition';
-          function loadDictionaryResults() {
-          /* Use the following if statement once xml gets configured*/
-          if(isDictionaryResultPresent()){
-          /*
-          if(&quot;<xsl:value-of select="$space_normalized_query"/>&quot;.toLowerCase() == 'bankruptcy'){
-          */
-          document.getElementById(DICTIONARY_CONTAINER).style.display = '';
-          document.getElementById(DICTIONARY_TERM).style.display = '';
-          document.getElementById(DICTIONARY_DEFINITION).style.display = '';
-          }
-          }
 
-          function isDictionaryResultPresent()  {
-          if (window.XMLHttpRequest) {
-          xmlhttp = new XMLHttpRequest();
-          }
-          else {
-          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-          xmlhttp.open("GET", "https://guru.mi.corp.rockfin.com/dictionary/GuruDictionary.xml", false);
-          xmlhttp.send();
-          xmlDoc = xmlhttp.responseXML;
+        var DICTIONARY_CONTAINER = 'dictionary-container';
+        var DICTIONARY_TERM = 'dictionary-term';
+        var DICTIONARY_DEFINITION = 'dictionary-definition';
 
-          e = document.getElementById("dictionary-term");
-          f = document.getElementById("dictionary-definition");
-          var x = xmlDoc.getElementsByTagName("TermDef");
-          for (i = 0; i &lt; x.length; i++) {
-          if (x[i].getElementsByTagName("Term")[0].childNodes[0].nodeValue.toLowerCase() == &quot;<xsl:value-of select="$space_normalized_query"/>&quot;.toLowerCase()) {
-          e.innerHTML = x[i].getElementsByTagName("Term")[0].childNodes[0].nodeValue;
-          f.innerHTML = x[i].getElementsByTagName("Definition")[0].childNodes[0].nodeValue;
-          return true;
-          }
-          }
-          return false;
-          }
-        </xsl:if>
+        /** USING JSONP **/
+        function readJson(data) {
+        var allTerms = data.GuruDictionary;
+        var numTerms = 0;
+        for(var td in allTerms) {
+        if(allTerms.hasOwnProperty(td)){
+        numTerms++;
+        }
+        }
+
+        for(i = 0; i &lt; numTerms; i++) {
+        var termdef = allTerms[i];
+        var term = termdef.term;
+        if(term.toLowerCase() == &quot;<xsl:value-of select="$space_normalized_query"/>&quot;.toLowerCase())  {
+        var definition = termdef.definition;
+        document.getElementById(DICTIONARY_CONTAINER).style.display = '';
+        document.getElementById(DICTIONARY_TERM).innerHTML = term;
+        document.getElementById(DICTIONARY_DEFINITION).innerHTML = definition;
+        document.getElementById(DICTIONARY_TERM).style.display = '';
+        document.getElementById(DICTIONARY_DEFINITION).style.display = '';
+        }
+        }
+
+
+        }
+
+        var script = document.createElement('script');
+        script.src = 'https://guru.mi.corp.rockfin.com/dictionary/GuruDictionary.json';
+
+        document.getElementsByTagName('head')[0].appendChild(script);
+
+        window.onload = readJson(script);
+
+
+        function readProductupJson(data)  {
+        var updateList = data.ProductUpdates;
+        var index = 0;
+        var count = 0;
+        while(count &lt; 5)  {
+        var update = updateList[index];
+        if(update.product != "Charles Schwab")  {
+        var newUpdate = document.createElement("div");
+        newUpdate.className = "sb-l-res";
+        var dateNode = document.createTextNode(update.date + " ");
+        newUpdate.appendChild(dateNode);
+        var linkElement = document.createElement("a");
+        linkElement.href = update.link;
+        linkElement.innerHTML = update.info;
+        newUpdate.appendChild(linkElement);
+        var container = document.getElementById("productup-body");
+        container.appendChild(newUpdate);
+        count++;
+        }
+        index++;
+        }
+        }
+
+        var productupScript = document.createElement('script');
+        productupScript.src = 'http://ij8.github.io/Tests/ProductUpdateTest/productupdates.json';
+
+        document.getElementsByTagName('head')[0].appendChild(productupScript);
+
+        window.onload = readProductupJson(productupScript);
+
+
         function resetForms() {
         for (var i = 0; i &lt; document.forms.length; i++ ) {
         document.forms[i].reset();
@@ -5011,7 +5060,7 @@ so we use a sentinel value of -1 for swrnum -->
                     <table style="margin-top:8px;" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td>
-                          <input id="top-search-box" type="text" name="q" size="{$search_box_size}" maxlength="256" value="{$space_normalized_query}" autocomplete="off" onkeyup="ss_handleKey(event)"/>
+                          <input id="top-search-box" type="text" name="q" size="{$search_box_size}" maxlength="256" value="{$space_normalized_query}" autocomplete="on" onkeyup="ss_handleKey(event)"/>
                         </td>
                         <td>
                           <button class="search-btn" type="submit">
@@ -5104,7 +5153,7 @@ so we use a sentinel value of -1 for swrnum -->
                     <table cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td>
-                          <input id="top-search-box" type="text" name="q" size="{$search_box_size}" maxlength="256" value="{$space_normalized_query}" autocomplete="off" onkeyup="ss_handleKey(event)"/>
+                          <input id="top-search-box" type="text" name="q" size="{$search_box_size}" maxlength="256" value="{$space_normalized_query}" autocomplete="on" onkeyup="ss_handleKey(event)"/>
                         </td>
                         <td>
                           <button class="search-btn" type="submit">
@@ -5553,7 +5602,7 @@ so we use a sentinel value of -1 for swrnum -->
       <xsl:variable name="values">
         [<xsl:for-each select="PV[position() &gt; $dyn_nav_max_rows and @C != '0']">
           ["<xsl:call-template
-      name='escapeJsChars'>
+    name='escapeJsChars'>
             <xsl:with-param name="text" select="@V"/>
           </xsl:call-template>", <xsl:value-of select='@C'/>]<xsl:if
           test="position() != last()">,</xsl:if>
@@ -5731,7 +5780,7 @@ so we use a sentinel value of -1 for swrnum -->
                   </xsl:if>..<xsl:if
  test="$stripped_h != ''">
                     $<xsl:value-of
-          select="$stripped_h"/>
+         select="$stripped_h"/>
                   </xsl:if>
                 </xsl:when>
                 <xsl:otherwise>
@@ -5784,7 +5833,7 @@ so we use a sentinel value of -1 for swrnum -->
             <xsl:value-of select="$no_q_dnavs_params"/>&amp;q=<xsl:value-of
             select="$original_q"/><xsl:if test="$other_tokens != ''">
               +<xsl:value-of
-          select="$other_tokens"/>&amp;dnavs=<xsl:value-of select="$other_tokens"/>
+         select="$other_tokens"/>&amp;dnavs=<xsl:value-of select="$other_tokens"/>
             </xsl:if>
           </xsl:variable>
 
@@ -5990,7 +6039,7 @@ so we use a sentinel value of -1 for swrnum -->
               <xsl:value-of select="$all_results_url"/>
               <xsl:if test="$other_pmts_tokens != ''">
                 +<xsl:value-of
-              select="$other_pmts_tokens"/>&amp;dnavs=<xsl:value-of select="$other_pmts_tokens"/>
+             select="$other_pmts_tokens"/>&amp;dnavs=<xsl:value-of select="$other_pmts_tokens"/>
               </xsl:if>
             </xsl:variable>
 
@@ -6379,18 +6428,7 @@ select="normalize-space(@H)"/>
       <div id="productup-hdr" class="productup-header">
         Product Updates
       </div>
-      <div id="productup-body" class="productup-body">
-        <!-- Everything within the framecontainer div is pulled from the capital markets website -->
-        <!-- The IframeWrapper is to prevent from navigating within the iframe -->
-        <div id="framecontainer" style="width:245px; height:220px; margin:5px;">
-          <div id="frameouterdiv" style="width:245px; height:220px; overflow:hidden; position:relative;">
-            <div id="IframeWrapper" style="position: relative;">
-              <a id="iframeBlocker" style="position: absolute; top: 0; left: 0; width: 245px; height: 220px; z-index:2;" target="_blank" href="http://quniverse/teams/capitalmarkets/Pages/Product%20Announcements.aspx"></a>
-              <iframe id="frameinnerdiv" width="500" height="560" src="http://quniverse/teams/capitalmarkets/Pages/default.aspx" scrolling="no" frameborder="0" style="position:absolute; top:-1000px; left:-200px; width:1280px; height:1200px;"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="productup-body" class="productup-body"></div>
     </div>
   </xsl:template>
 
@@ -6406,7 +6444,7 @@ select="normalize-space(@H)"/>
             Email Contacts
           </div>
           <div class="sb-l-res">
-            <a href="mailto:ServicingGURUFeedback@quickenloans.com"> Servicing GURU Feedback</a>
+            <a href="mailto:ServicingGURUFeedback@quickenloans.com"> Servicing Feedback</a>
           </div>
           <div class="sb-l-res">
             <a href="mailto:ServicingProductLabQuestions@quickenloans.com">Servicing Product Lab</a>
@@ -6428,18 +6466,13 @@ select="normalize-space(@H)"/>
       <div id="dictionary-hdr" class="dictionary-header" >
         <!-- Replace the following with the actual dictionary term!! -->
         <div id="dictionary-term" style="display: none;" >
-          Bankruptcy (This is Hardcoded)
         </div>
       </div>
       <div id="dictionary-body" class="dictionary-body">
         <div id="dictionary-definition" class="sb-l-res" style="display: none;" >
-          Bankruptcy (BK) is defined as the client’s application for court ordered release or restructuring of debt.
         </div>
       </div>
     </div>
-    <script type="text/javascript">
-      loadDictionaryResults();
-    </script>
   </xsl:template>
 
   <!-- Relevant Training Materials -->
@@ -6471,7 +6504,7 @@ select="normalize-space(@H)"/>
       </xsl:choose>
     </xsl:variable>
 
-    <div class="{$main_results_class}">
+    <div id="{$main_results_class}">
       <!-- for keymatch results -->
       <xsl:if test="$show_keymatch != '0'">
         <xsl:apply-templates select="/GSP/GM"/>
@@ -6534,24 +6567,6 @@ select="normalize-space(@H)"/>
             <form method="GET" action="http://gsa/search">
               <input type="hidden" name="q" value="{$space_normalized_query}"/>
               <xsl:choose>
-                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FHA'">
-                  <input type="submit" name="btnG" id="submit-clicked" value="FHA"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <input type="submit" name="btnG" value="FHA"/>
-                </xsl:otherwise>
-              </xsl:choose>
-              <input type="hidden" name="site" value="Servicing_Guru_FHA"/>
-              <input type="hidden" name="client" value="{$frontend_name}"/>
-              <input type="hidden" name="output" value="xml_no_dtd"/>
-              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
-              <input type="hidden" name="filter" value="0"/>
-            </form>
-          </div>
-          <div class="form-container">
-            <form method="GET" action="http://gsa/search">
-              <input type="hidden" name="q" value="{$space_normalized_query}"/>
-              <xsl:choose>
                 <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FannieMae'">
                   <input type="submit" name="btnG" id="submit-clicked" value="FannieMae"/>
                 </xsl:when>
@@ -6588,6 +6603,24 @@ select="normalize-space(@H)"/>
             <form method="GET" action="http://gsa/search">
               <input type="hidden" name="q" value="{$space_normalized_query}"/>
               <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FHA'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="FHA"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="FHA"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_FHA"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsa/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
                 <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_VA'">
                   <input type="submit" name="btnG" id="submit-clicked" value="VA"/>
                 </xsl:when>
@@ -6614,6 +6647,42 @@ select="normalize-space(@H)"/>
                 </xsl:otherwise>
               </xsl:choose>
               <input type="hidden" name="site" value="Servicing_Guru_Legal"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsa/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_TrainingMaterials'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="Training"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="Training"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_TrainingMaterials"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsa/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_TrainingTools'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="Training Docs"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="Training Docs"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_TrainingTools"/>
               <input type="hidden" name="client" value="{$frontend_name}"/>
               <input type="hidden" name="output" value="xml_no_dtd"/>
               <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
@@ -6625,7 +6694,7 @@ select="normalize-space(@H)"/>
     </div>
   </xsl:template>
 
-  <!--<xsl:variable name="frontend_name">Servicing_Guru_Test_Frontend</xsl:variable>
+  <!--<xsl:variable name="frontend_name">ijo_servicing_guru_test_frontend</xsl:variable>
   <xsl:template name="collection_links">
     <div id="collection_filter_links" style="min-width: 900px;">
       <div class="left-spacing"></div>
@@ -6635,14 +6704,14 @@ select="normalize-space(@H)"/>
             <form method="GET" action="http://gsatest/search">
               <input type="hidden" name="q" value="{$space_normalized_query}"/>
               <xsl:choose>
-                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_All'">
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Test_All'">
                   <input type="submit" name="btnG" id="submit-clicked" value="All QL"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <input type="submit" name="btnG" value="All QL"/>
                 </xsl:otherwise>
               </xsl:choose>
-              <input type="hidden" name="site" value="Servicing_Guru_All"/>
+              <input type="hidden" name="site" value="Servicing_Guru_Test_All"/>
               <input type="hidden" name="client" value="{$frontend_name}"/>
               <input type="hidden" name="output" value="xml_no_dtd"/>
               <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
@@ -6653,32 +6722,14 @@ select="normalize-space(@H)"/>
             <form method="GET" action="http://gsatest/search">
               <input type="hidden" name="q" value="{$space_normalized_query}"/>
               <xsl:choose>
-                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FHA'">
-                  <input type="submit" name="btnG" id="submit-clicked" value="FHA"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <input type="submit" name="btnG" value="FHA"/>
-                </xsl:otherwise>
-              </xsl:choose>
-              <input type="hidden" name="site" value="Servicing_Guru_FHA"/>
-              <input type="hidden" name="client" value="{$frontend_name}"/>
-              <input type="hidden" name="output" value="xml_no_dtd"/>
-              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
-              <input type="hidden" name="filter" value="0"/>
-            </form>
-          </div>
-          <div class="form-container">
-            <form method="GET" action="http://gsatest/search">
-              <input type="hidden" name="q" value="{$space_normalized_query}"/>
-              <xsl:choose>
-                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FannieMae'">
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Test_FannieMae'">
                   <input type="submit" name="btnG" id="submit-clicked" value="FannieMae"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <input type="submit" name="btnG" value="FannieMae"/>
                 </xsl:otherwise>
               </xsl:choose>
-              <input type="hidden" name="site" value="Servicing_Guru_FannieMae"/>
+              <input type="hidden" name="site" value="Servicing_Guru_Test_FannieMae"/>
               <input type="hidden" name="client" value="{$frontend_name}"/>
               <input type="hidden" name="output" value="xml_no_dtd"/>
               <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
@@ -6689,14 +6740,14 @@ select="normalize-space(@H)"/>
             <form method="GET" action="http://gsatest/search">
               <input type="hidden" name="q" value="{$space_normalized_query}"/>
               <xsl:choose>
-                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_FreddieMac'">
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Test_FreddieMac'">
                   <input type="submit" name="btnG" id="submit-clicked" value="FreddieMac"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <input type="submit" name="btnG" value="FreddieMac"/>
                 </xsl:otherwise>
               </xsl:choose>
-              <input type="hidden" name="site" value="Servicing_Guru_FreddieMac"/>
+              <input type="hidden" name="site" value="Servicing_Guru_Test_FreddieMac"/>
               <input type="hidden" name="client" value="{$frontend_name}"/>
               <input type="hidden" name="output" value="xml_no_dtd"/>
               <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
@@ -6707,14 +6758,32 @@ select="normalize-space(@H)"/>
             <form method="GET" action="http://gsatest/search">
               <input type="hidden" name="q" value="{$space_normalized_query}"/>
               <xsl:choose>
-                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_VA'">
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Test_FHA'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="FHA"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="FHA"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_Test_FHA"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Test_VA'">
                   <input type="submit" name="btnG" id="submit-clicked" value="VA"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <input type="submit" name="btnG" value="VA"/>
                 </xsl:otherwise>
               </xsl:choose>
-              <input type="hidden" name="site" value="Servicing_Guru_VA"/>
+              <input type="hidden" name="site" value="Servicing_Guru_Test_VA"/>
               <input type="hidden" name="client" value="{$frontend_name}"/>
               <input type="hidden" name="output" value="xml_no_dtd"/>
               <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
@@ -6725,14 +6794,50 @@ select="normalize-space(@H)"/>
             <form method="GET" action="http://gsatest/search">
               <input type="hidden" name="q" value="{$space_normalized_query}"/>
               <xsl:choose>
-                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Legal'">
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Test_Legal'">
                   <input type="submit" name="btnG" id="submit-clicked" value="Legal"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <input type="submit" name="btnG" value="Legal"/>
                 </xsl:otherwise>
               </xsl:choose>
-              <input type="hidden" name="site" value="Servicing_Guru_Legal"/>
+              <input type="hidden" name="site" value="Servicing_Guru_Test_Legal"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Test_TrainingMaterials'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="Training"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="Training"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_Test_TrainingMaterials"/>
+              <input type="hidden" name="client" value="{$frontend_name}"/>
+              <input type="hidden" name="output" value="xml_no_dtd"/>
+              <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
+              <input type="hidden" name="filter" value="0"/>
+            </form>
+          </div>
+          <div class="form-container">
+            <form method="GET" action="http://gsatest/search">
+              <input type="hidden" name="q" value="{$space_normalized_query}"/>
+              <xsl:choose>
+                <xsl:when test="PARAM[@name='site']/@value='Servicing_Guru_Test_TrainingTools'">
+                  <input type="submit" name="btnG" id="submit-clicked" value="Training Docs"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="submit" name="btnG" value="Training Docs"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <input type="hidden" name="site" value="Servicing_Guru_Test_TrainingTools"/>
               <input type="hidden" name="client" value="{$frontend_name}"/>
               <input type="hidden" name="output" value="xml_no_dtd"/>
               <input type="hidden" name="proxystylesheet" value="{$frontend_name}"/>
@@ -7158,7 +7263,20 @@ select="normalize-space(@H)"/>
                 <xsl:value-of disable-output-escaping='yes' select="concat('file://', $display_url2)"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:value-of disable-output-escaping='yes' select="U"/>
+                <!-- *** Add query to url if pass_query_through_url is enabled *** -->
+                <xsl:choose>
+                  <xsl:when test="$pass_query_through_url = 1">
+                    <xsl:variable name="new_url">
+                      <xsl:call-template name="add_query_to_url">
+                        <xsl:with-param name="url" select="U"/>
+                      </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:value-of disable-output-escaping='yes' select="$new_url"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of disable-output-escaping='yes' select="U"/>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:otherwise>
             </xsl:choose>
             <xsl:text disable-output-escaping='yes'>"&gt;</xsl:text>
@@ -7166,9 +7284,10 @@ select="normalize-space(@H)"/>
           <span id="title_{$res_num}" class="l">
             <xsl:choose>
               <xsl:when test="T">
-                <span class= "goog-trans-section l" transId="gadget_{$res_num}">
+                <span id="reformat_{$res_num}" class= "goog-trans-section l" transId="gadget_{$res_num}">
                   <xsl:call-template name="reformat_keyword">
                     <xsl:with-param name="orig_string" select="T"/>
+                    <xsl:with-param name="is_title">1</xsl:with-param>
                   </xsl:call-template>
                 </span>
               </xsl:when>
@@ -7194,6 +7313,7 @@ select="normalize-space(@H)"/>
                 <div style="color:#545454">
                   <xsl:call-template name="reformat_keyword">
                     <xsl:with-param name="orig_string" select="S"/>
+                    <xsl:with-param name="is_title">0</xsl:with-param>
                   </xsl:call-template>
                 </div>
               </span>
@@ -7299,32 +7419,37 @@ select="normalize-space(@H)"/>
   <!-- **********************************************************************
   A single keymatch result (do not customize)
      ********************************************************************** -->
+
   <xsl:template match="GM">
-    <p>
-      <table cellpadding="4" cellspacing="0" border="0" height="40" width="100%">
-        <tr>
-          <td nowrap="0" bgcolor="{$keymatch_bg_color}" height="40">
-            <a ctype="keymatch" href="{GL}">
-              <xsl:value-of select="GD"/>
-            </a>
-            <br/>
-            <font size="-1" color="{$res_url_color}">
-              <span class="a">
-                <xsl:value-of select="GL"/>
-              </span>
-            </font>
-          </td>
-          <td bgcolor="{$keymatch_bg_color}" height="40"
-            align="right" valign="top">
-            <b>
-              <font size="-1" color="{$keymatch_text_color}">
-                <xsl:value-of select="$keymatch_text"/>
-              </font>
-            </b>
-          </td>
-        </tr>
-      </table>
-    </p>
+    <div class="result-item" style="margin-top: 20px">
+      <span bgcolor="{$keymatch_bg_color}"
+            style="float:right" valign="top">
+        <b>
+          <font size="-1" color="{$keymatch_text_color}">
+            <xsl:value-of select="$keymatch_text"/>
+          </font>
+        </b>
+      </span>
+      <span class="r">
+        <span bgcolor="{$keymatch_bg_color}" >
+          <a ctype="keymatch" href="{GL}" >
+            <xsl:call-template name="bold_keyword">
+              <xsl:with-param name="orig_string" select="GD"/>
+            </xsl:call-template>
+            <!--<xsl:value-of select="GD"/>-->
+          </a>
+          <br/>
+          <font size="-1" color="{$res_url_color}">
+            <span class="a">
+              <xsl:value-of select="GL"/>
+            </span>
+          </font>
+        </span>
+
+      </span>
+    </div>
+    <p></p>
+
   </xsl:template>
 
   <!-- **********************************************************************
@@ -7372,12 +7497,28 @@ select="normalize-space(@H)"/>
      ********************************************************************** -->
   <xsl:template name="reformat_keyword">
     <xsl:param name="orig_string"/>
+    <xsl:param name="is_title"/>
+
+    <xsl:variable name="mod_string">
+      <xsl:call-template name="remove_topicnumber">
+        <xsl:with-param name="title" select="$orig_string"/>
+      </xsl:call-template>
+    </xsl:variable>
 
     <xsl:variable name="reformatted_1">
       <xsl:call-template name="replace_string">
         <xsl:with-param name="find" select="$keyword_orig_start"/>
         <xsl:with-param name="replace" select="$keyword_reformat_start"/>
-        <xsl:with-param name="string" select="$orig_string"/>
+        <xsl:with-param name="string">
+          <xsl:choose>
+            <xsl:when test="$is_title = '1' and $hide_topicnumbers = '1'">
+              <xsl:value-of select="$mod_string"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$orig_string"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
       </xsl:call-template>
     </xsl:variable>
 
@@ -7391,6 +7532,86 @@ select="normalize-space(@H)"/>
 
     <xsl:value-of disable-output-escaping='yes' select="$reformatted_2"/>
 
+  </xsl:template>
+
+  <xsl:template name="bold_keyword">
+    <xsl:param name="orig_string"/>
+
+    <xsl:variable name="bold_string">
+      <xsl:variable name="queryLowercase">
+        <xsl:call-template name="tosmallcase">
+          <xsl:with-param name="string" select="$space_normalized_query"/>
+        </xsl:call-template>
+      </xsl:variable>
+
+      <xsl:choose>
+        <xsl:when test="contains($orig_string, ' ')">
+          <xsl:variable name="substringBeforeLowercase">
+            <xsl:call-template name="tosmallcase">
+              <xsl:with-param name="string" select="substring-before($orig_string, ' ')"/>
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="contains($queryLowercase, $substringBeforeLowercase)">
+              <xsl:value-of select="concat(concat($keyword_orig_start, substring-before($orig_string, ' ')), concat($keyword_orig_end, ' '))"/>
+              <xsl:call-template name="bold_keyword">
+                <xsl:with-param name="orig_string" select="substring-after($orig_string, ' ')"/>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="concat(substring-before($orig_string, ' '), ' ')"/>
+              <xsl:call-template name="bold_keyword">
+                <xsl:with-param name="orig_string" select="substring-after($orig_string, ' ')"/>
+              </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="stringLowercase">
+            <xsl:call-template name="tosmallcase">
+              <xsl:with-param name="string" select="$orig_string"/>
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="contains($queryLowercase, $stringLowercase)">
+              <xsl:value-of select="concat(concat($keyword_orig_start, $orig_string), $keyword_orig_end)"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$orig_string"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:value-of disable-output-escaping='yes' select="$bold_string"/>
+
+  </xsl:template>
+
+  <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+  <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+  <xsl:template name="tosmallcase">
+    <xsl:param name="string"/>
+    <xsl:value-of select="translate($string, $uppercase, $smallcase)" />
+  </xsl:template>
+
+  <xsl:variable name="numbers" select="'1234567890'" />
+  <xsl:template name="add_query_to_url">
+    <xsl:param name="url"/>
+    <xsl:if test="$url != ''">
+      <xsl:variable name="character" select="substring($url, 1, 1)" />
+      <xsl:choose>
+        <xsl:when test="contains($numbers, $character)">
+          <xsl:value-of select="concat(concat('index.htm?q=', $space_normalized_query), concat(concat('#', $character), substring-after($url, $character)))"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$character"/>
+          <xsl:call-template name="add_query_to_url">
+            <xsl:with-param name="url" select="substring-after($url, $character)" />
+          </xsl:call-template>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
   </xsl:template>
 
   <!-- **********************************************************************
@@ -8267,6 +8488,28 @@ select="normalize-space(@H)"/>
 
     <xsl:value-of disable-output-escaping='yes' select="concat($backslash,$backslash,$converted_3)"/>
 
+  </xsl:template>
+
+  <xsl:template name="remove_topicnumber">
+    <xsl:param name="title"/>
+    <xsl:variable name="space_char" select="' '"/>
+    <xsl:variable name="period_char" select="'.'"/>
+    <xsl:choose>
+      <xsl:when test="contains($title, $space_char)">
+        <xsl:choose>
+          <xsl:when test="contains(substring-before($title, $space_char), $period_char)">
+            <xsl:variable name="new_string" select="substring-after($title, $space_char)"/>
+            <xsl:value-of select="$new_string"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$title"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$title"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- **********************************************************************

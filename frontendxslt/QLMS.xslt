@@ -1261,7 +1261,7 @@ Empty result set (can be customized)
         height:50px;
         }
         .search-btn{
-        background-color:  rgb(56,100,180);
+        background-color:  #2980b9;
         color:white;
         border: 0px;
         height: 31px;
@@ -1276,7 +1276,7 @@ Empty result set (can be customized)
         width: 450px;
         height: 27px;
         padding-left: 5px;
-        border: 2px inset gray;
+        border: 2px solid lightgray;
         border-right:0px;
         }
         .new-header{
@@ -2668,8 +2668,6 @@ Search results (do not customize)
           document.getElementById(DICTIONARY_DEFINITION).style.display = '';
           }
           }
-
-
           }
 
           var script = document.createElement('script');
@@ -2678,6 +2676,37 @@ Search results (do not customize)
           document.getElementsByTagName('head')[0].appendChild(script);
 
           window.onload = readJson(script);
+
+          function readProductupJson(data)  {
+          var updateList = data.ProductUpdates;
+          var index = 0;
+          var count = 0;
+          while(count &lt; 5)  {
+          var update = updateList[index];
+          if(update.product != "Charles Schwab")  {
+          var newUpdate = document.createElement("div");
+          newUpdate.className = "sb-l-res";
+          var dateNode = document.createTextNode(update.date + " ");
+          newUpdate.appendChild(dateNode);
+          var linkElement = document.createElement("a");
+          linkElement.href = update.link;
+          linkElement.innerHTML = update.info;
+          newUpdate.appendChild(linkElement);
+          var container = document.getElementById("productup-body");
+          container.appendChild(newUpdate);
+          count++;
+          }
+          index++;
+          }
+          }
+
+          var productupScript = document.createElement('script');
+          productupScript.src = 'http://ij8.github.io/Tests/ProductUpdateTest/productupdates.json';
+
+          document.getElementsByTagName('head')[0].appendChild(productupScript);
+
+          window.onload = readProductupJson(productupScript);
+
         </xsl:comment>
       </script>
       <xsl:call-template name="langHeadEnd"/>
@@ -3249,18 +3278,8 @@ Output all results
       <div id="productup-hdr" class="productup-header">
         Product Updates
       </div>
-      <div id="productup-body" class="productup-body">
-        <!-- Everything within the framecontainer div is pulled from the capital markets website -->
-        <!-- The IframeWrapper is to prevent from navigating within the iframe -->
-        <div id="framecontainer" style="width:245px; height:220px; margin:5px;">
-          <div id="frameouterdiv" style="width:245px; height:220px; overflow:hidden; position:relative;">
-            <div id="IframeWrapper" style="position: relative;">
-              <a id="iframeBlocker" style="position: absolute; top: 0; left: 0; width: 245px; height: 220px; z-index:2;" target="_blank" href="http://quniverse/teams/capitalmarkets/Pages/Product%20Announcements.aspx"></a>
-              <iframe id="frameinnerdiv" width="500" height="560" src="http://quniverse/teams/capitalmarkets/Pages/default.aspx" scrolling="no" frameborder="0" style="position:absolute; top:-1000px; left:-200px; width:1280px; height:1200px;"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- *** Content populated by JS *** -->
+      <div id="productup-body" class="productup-body"></div>
     </div>
   </xsl:template>
 
@@ -3275,7 +3294,7 @@ Output all results
           Key References
         </div>
         <div class="sb-l-res">
-          <a target="_blank" href=" https://portal.qlmortgageservices.com/guru/All/index.htm#4193.htm">Product Matrix</a>
+          <a target="_blank" href="https://portal.qlmortgageservices.com/guru/All/index.htm#4193.htm">Product Matrix</a>
         </div>
         <div class="sb-l-res">
           <a target="_blank" href="http://quniverse/teams/capitalmarkets/secondary_public_docs/GURU_Supplements/FHAUnder%20620UpdatedQL.pdf">FHA &lt; 620 One-Pager</a>
@@ -3299,6 +3318,9 @@ Output all results
         </div>
         <div class="sb-l-res">
           <a target="_blank" href="http://quniverse/teams/capitalmarkets/Product%20Announcements/GURU-Search-Tips.pdf">Search Tips</a>
+        </div>
+        <div class="sb-l-res">
+          <a target="_blank" href="http://youtu.be/_4fXkqfqM_U">Guru Tutorial</a>
         </div>
       </div>
     </div>

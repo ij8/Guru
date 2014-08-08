@@ -873,7 +873,7 @@
     <span id="QL" style="display:inline-block;">
       <a href="http://guru" style="float:left; max-width: 388px; min-width: 240px; width: 25%; height:62px; margin-top:10px; ">
       <!--<a href="http://gurutest" style="float:left; max-width: 388px; min-width: 240px; width: 25%; height:62px; margin-top:10px; ">-->
-        <img src="http://gurutest/images/GURU-logo-flat.png" alt="LOGO" style="border:none;"/>
+        <img src="http://guru/images/Banner-GURU-logo.png" alt="LOGO" style="border:none;"/>
       </a>
       <xsl:call-template name="result_page_header"/>
 
@@ -2605,7 +2605,7 @@
       height:50px;
       }
       .search-btn{
-      background-color:  rgb(56,100,180);
+      background-color:  #2980b9;
       color:white;
       border: 0px;
       height: 31px;
@@ -2620,7 +2620,7 @@
       width: 450px;
       height: 27px;
       padding-left: 5px;
-      border: 2px inset gray;
+      border: 2px solid lightgray;
       border-right:0px;
 
 
@@ -5309,39 +5309,6 @@ so we use a sentinel value of -1 for swrnum -->
     </table>
   </xsl:template>
 
-  <xsl:template name="cluster_results">
-    <div id='clustering' class="sidebar-element">
-      <div class="cluster-header">
-        Narrow Your Search
-      </div>
-      <div class="cluster-body">
-        <div class="sb-r-res">
-          <span id='cluster_status'>
-            <span id='cluster_message' style="display:none">loading...</span>
-            <noscript>
-              javascript must be enabled for narrowing.
-            </noscript>
-          </span>
-
-          <ul>
-            <li id='cluster_label0'></li>
-            <li id='cluster_label1'></li>
-            <li id='cluster_label2'></li>
-            <li id='cluster_label3'></li>
-            <li id='cluster_label4'></li>
-            <li id='cluster_label5'></li>
-            <li id='cluster_label6'></li>
-            <li id='cluster_label7'></li>
-            <li id='cluster_label8'></li>
-            <li id='cluster_label9'></li>
-          </ul>
-
-        </div>
-      </div>
-
-    </div>
-  </xsl:template>
-
   <!-- Generates search results navigation bar to be placed at the top. -->
   <xsl:template name="gen_top_navigation">
     <xsl:if test="RES">
@@ -6565,6 +6532,39 @@ select="normalize-space(@H)"/>
     </div>
   </xsl:template>
 
+     <xsl:template name="cluster_results">
+    <div id='clustering' class="sidebar-element">
+      <div class="cluster-header">
+        Narrow Your Search
+      </div>
+      <div class="cluster-body">
+        <div class="sb-r-res">
+          <span id='cluster_status'>
+            <span id='cluster_message' style="display:none">loading...</span>
+            <noscript>
+              javascript must be enabled for narrowing.
+            </noscript>
+          </span>
+
+          <ul>
+            <li id='cluster_label0'></li>
+            <li id='cluster_label1'></li>
+            <li id='cluster_label2'></li>
+            <li id='cluster_label3'></li>
+            <li id='cluster_label4'></li>
+            <li id='cluster_label5'></li>
+            <li id='cluster_label6'></li>
+            <li id='cluster_label7'></li>
+            <li id='cluster_label8'></li>
+            <li id='cluster_label9'></li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+  </xsl:template>
+    
   <!-- Collection Filter Links-->
   <xsl:variable name="frontend_name">Guru_Frontend</xsl:variable>
   <xsl:template name="collection_links">
